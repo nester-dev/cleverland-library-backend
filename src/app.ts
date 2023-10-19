@@ -9,6 +9,7 @@ import cors from 'cors';
 import { MongodbService } from './database/mongodb.service';
 import { IConfigService } from './config/config.service.interface';
 import { AuthMiddleware } from './common/auth.middleware';
+import { CategoriesController } from './categories/categories.controller';
 
 @injectable()
 export class App {
@@ -21,6 +22,7 @@ export class App {
 		@inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter,
 		@inject(TYPES.MongoDBService) private mongodbService: MongodbService,
 		@inject(TYPES.ConfigService) private configService: IConfigService,
+		@inject(TYPES.CategoriesController) private categoriesController: CategoriesController,
 	) {
 		this.app = express();
 		this.port = +this.configService.get('PORT') || 8002;
@@ -35,6 +37,7 @@ export class App {
 
 	useRoutes(): void {
 		this.app.use('/auth', this.usersController.getRouter());
+		this.app.use('/api', this.categoriesController.getRouter());
 	}
 
 	useExceptionFilters(): void {

@@ -10,6 +10,9 @@ export const TYPES = {
 	ConfigService: Symbol.for('ConfigService'),
 	UserService: Symbol.for('UserService'),
 	UserRepository: Symbol.for('UserRepository'),
+	CategoriesController: Symbol.for('CategoriesController'),
+	CategoriesRepository: Symbol.for('CategoriesRepository'),
+	CategoriesService: Symbol.for('CategoriesService'),
 };
 
 export interface IBootstrapReturn {
@@ -21,4 +24,5 @@ export enum Paths {
 	Login = '/login',
 	Register = '/register',
 	GetMe = '/me',
+	Categories = '/categories',
 }

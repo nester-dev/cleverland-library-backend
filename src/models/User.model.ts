@@ -4,7 +4,7 @@ import { IUserModel } from './user.model.interface';
 
 const emailRegexpPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const userSchema: Schema<IUserModel> = new mongoose.Schema(
+const UserSchema: Schema<IUserModel> = new mongoose.Schema(
 	{
 		username: {
 			type: String,
@@ -53,4 +53,4 @@ const userSchema: Schema<IUserModel> = new mongoose.Schema(
 	{ timestamps: true },
 );
 
-export default mongoose.model<IUserModel>('User', userSchema);
+export default mongoose.model<IUserModel>('User', UserSchema);
