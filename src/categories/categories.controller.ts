@@ -1,5 +1,5 @@
 import { BaseController } from '../common/base.controller';
-import { Paths, TYPES } from '../types';
+import { TYPES } from '../types';
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { ICategoriesController } from './categories.controller.interface';
@@ -7,6 +7,7 @@ import { AuthGuard } from '../common/auth.guard';
 import { ICategoriesService } from './categories.service.interface';
 import { CategoriesCreateDto } from './dto/categories-create.dto';
 import { HttpError } from '../errors/http-error.class';
+import { ValidateMiddleware } from '../common/validate.middleware';
 
 @injectable()
 export class CategoriesController extends BaseController implements ICategoriesController {
@@ -14,17 +15,17 @@ export class CategoriesController extends BaseController implements ICategoriesC
 		super();
 		this.bindRoutes([
 			{
-				path: Paths.Categories,
+				path: '/',
 				method: 'get',
 				func: this.getCategories,
 				middleware: [new AuthGuard()],
 			},
 
 			{
-				path: Paths.Categories,
+				path: '/',
 				method: 'post',
 				func: this.createCategory,
-				middleware: [new AuthGuard()],
+				middleware: [new AuthGuard(), new ValidateMiddleware(CategoriesCreateDto)],
 			},
 		]);
 	}

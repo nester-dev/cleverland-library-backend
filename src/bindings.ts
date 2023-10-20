@@ -20,6 +20,13 @@ import { CategoriesRepository } from './categories/categories.repository';
 import { ICategoriesService } from './categories/categories.service.interface';
 import { CategoriesService } from './categories/categories.service';
 import { App } from './app';
+import { IBooksController } from './book/book.controller.interface';
+import { BookController } from './book/book.controller';
+import { IBookRepository } from './book/book.repository.interface';
+import { BookRepository } from './book/book.repository';
+import { IBookService } from './book/book.service.interface';
+import { BookService } from './book/book.service';
+import { MulterService } from './multer/multer.service';
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope();
@@ -36,5 +43,9 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 		.to(CategoriesRepository)
 		.inSingletonScope();
 	bind<ICategoriesService>(TYPES.CategoriesService).to(CategoriesService).inSingletonScope();
+	bind<IBooksController>(TYPES.BookController).to(BookController).inSingletonScope();
+	bind<IBookRepository>(TYPES.BookRepository).to(BookRepository).inSingletonScope();
+	bind<IBookService>(TYPES.BookService).to(BookService).inSingletonScope();
+	bind<MulterService>(TYPES.MulterService).to(MulterService);
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });
