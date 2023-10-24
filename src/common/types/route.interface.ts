@@ -1,4 +1,4 @@
-import { Paths } from '../types';
+import { Paths } from '../../types';
 import { NextFunction, Request, Response, Router } from 'express';
 import { IMiddleware } from './middleware.interface';
 

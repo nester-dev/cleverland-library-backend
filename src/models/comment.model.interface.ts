@@ -1,4 +1,7 @@
-export interface ICommentModel {
+import { Document } from 'mongoose';
+
+export interface ICommentModel extends Document {
+	id: string;
 	rating: number;
 	text: string;
 	createdAt: Date;

@@ -1,6 +1,5 @@
-import { Document } from 'mongoose';
-
-export interface IUserModel extends Document {
+export interface IUserModel {
+	id: string;
 	username: string;
 	email: string;
 	blocked: boolean;
@@ -10,4 +9,11 @@ export interface IUserModel extends Document {
 	password: string;
 	createdAt?: Date;
 	updatedAt?: Date;
+	avatar?: string | null;
+	comments?: {
+		id: string;
+		rating: number;
+		text: string;
+		bookId: string;
+	}[];
 }

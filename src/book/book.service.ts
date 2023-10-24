@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 import { IBookModel } from '../models/book.model.interface';
 import { TYPES } from '../types';
 import { Book } from './book.entity';
-import { IBookRepository } from './book.repository.interface';
-import { IBookService } from './book.service.interface';
+import { IBookRepository } from './types/book.repository.interface';
+import { IBookService } from './types/book.service.interface';
 import { BookCreateDto } from './dto/book-create.dto';
 import { v4 as uuid } from 'uuid';
 

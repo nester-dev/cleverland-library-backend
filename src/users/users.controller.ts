@@ -1,12 +1,12 @@
 import { BaseController } from '../common/base.controller';
-import { IUsersController } from './users.controller.interface';
+import { IUsersController } from './types/users.controller.interface';
 import { Paths, TYPES } from '../types';
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { UserLoginDto } from './dto/user-login.dto';
-import { IUserService } from './user.service.interface';
+import { IUserService } from './types/user.service.interface';
 import { HttpError } from '../errors/http-error.class';
 import { sign } from 'jsonwebtoken';
 import { IConfigService } from '../config/config.service.interface';
@@ -50,7 +50,7 @@ export class UsersController extends BaseController implements IUsersController 
 	): Promise<void> {
 		const user = await this.userService.validateUser(body);
 
-		if (!user) {
+		if (!user || !user?.id) {
 			return next(new HttpError(401, 'Invalid credentials'));
 		}
 

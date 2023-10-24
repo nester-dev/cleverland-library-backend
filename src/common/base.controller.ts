@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { IControllerRoute } from './route.interface';
+import { IControllerRoute } from './types/route.interface';
 import { injectable } from 'inversify';
 
 @injectable()

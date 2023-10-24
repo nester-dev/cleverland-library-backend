@@ -6,6 +6,7 @@ const emailRegexpPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const UserSchema: Schema<IUserModel> = new mongoose.Schema(
 	{
+		id: { type: String, required: [true, 'Id is required'] },
 		username: {
 			type: String,
 			required: [true, 'Username is required'],
@@ -49,6 +50,20 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema(
 			type: String,
 			required: [true, 'Phone number is required'],
 		},
+
+		avatar: {
+			type: String,
+			default: null,
+		},
+
+		comments: [
+			{
+				id: { type: String, required: [true, 'Id is required'] },
+				rating: Number,
+				text: { type: String, required: [true, 'Text is required'] },
+				bookId: { type: String, required: [true, 'BookId is required'] },
+			},
+		],
 	},
 	{ timestamps: true },
 );

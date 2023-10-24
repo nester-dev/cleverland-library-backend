@@ -1,9 +1,10 @@
-import { IBookRepository } from './book.repository.interface';
+import { IBookRepository } from './types/book.repository.interface';
 import { IBookModel, IImage } from '../models/book.model.interface';
 import BookModel from '../models/Book.model';
 import { Book } from './book.entity';
 import { injectable } from 'inversify';
 import CategoriesModel from '../models/Categories.model';
+import { ICommentModel } from '../models/comment.model.interface';
 
 @injectable()
 export class BookRepository implements IBookRepository {
@@ -24,6 +25,27 @@ export class BookRepository implements IBookRepository {
 		}
 
 		return result;
+	}
+
+	async addCommentToBook(bookId: string, comment: ICommentModel): Promise<IBookModel | null> {
+		return BookModel.findOneAndUpdate(
+			{ id: bookId },
+			{ $push: { comments: comment } },
+			{ new: true },
+		);
+	}
+
+	async updateCommentToBook(
+		bookId: string,
+		commentId: string,
+		text: string,
+		rating: number,
+	): Promise<IBookModel | null> {
+		return BookModel.findOneAndUpdate(
+			{ id: bookId },
+			{ $set: { 'comments.$[comment].text': text, 'comments.$[comment].rating': rating } },
+			{ arrayFilters: [{ 'comment.id': commentId }], new: true },
+		);
 	}
 
 	addImagesToBook(id: string, newImages: IImage[]): Promise<IBookModel | null> {

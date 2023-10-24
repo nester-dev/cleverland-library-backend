@@ -1,12 +1,13 @@
-import { IUserService } from './user.service.interface';
+import { IUserService } from './types/user.service.interface';
 import { User } from './user.entity';
 import { inject, injectable } from 'inversify';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { TYPES } from '../types';
 import { IConfigService } from '../config/config.service.interface';
-import { IUserRepository } from './user.repository.interface';
+import { IUserRepository } from './types/user.repository.interface';
 import { UserLoginDto } from './dto/user-login.dto';
 import { IUserModel } from '../models/user.model.interface';
+import { v4 as uuid } from 'uuid';
 
 @injectable()
 export class UserService implements IUserService {
@@ -29,7 +30,8 @@ export class UserService implements IUserService {
 			return null;
 		}
 
-		const newUser = new User(username, email, false, firstName, lastName, phone);
+		const userId = uuid();
+		const newUser = new User(userId, username, email, false, firstName, lastName, phone);
 		const salt = this.configService.get('SALT');
 
 		await newUser.setPassword(password, Number(salt));
@@ -45,6 +47,7 @@ export class UserService implements IUserService {
 		}
 
 		const user = new User(
+			existedUser.id,
 			existedUser.username,
 			existedUser.email,
 			existedUser.blocked,
@@ -73,6 +76,7 @@ export class UserService implements IUserService {
 		}
 
 		return new User(
+			existedUser.id,
 			existedUser.username,
 			existedUser.email,
 			existedUser.blocked,

@@ -18,7 +18,20 @@ const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 	authors: { type: [String], required: [true, 'Authors is required'] },
 	categories: [String],
 	images: [{ url: String }],
-	comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', default: [] }],
+	comments: [
+		{
+			id: { type: String, required: [true, 'Id is required'] },
+			rating: Number,
+			text: { type: String, required: [true, 'Text is required'] },
+			createdAt: Date,
+			user: {
+				commentUserId: { type: String, required: [true, 'userId is required'] },
+				firstName: { type: String, required: [true, 'firstName is required'] },
+				lastName: { type: String, required: [true, 'lastName is required'] },
+				avatarUrl: { type: String, default: null },
+			},
+		},
+	],
 });
 
 export default mongoose.model<IBookModel>('Book', BookSchema);

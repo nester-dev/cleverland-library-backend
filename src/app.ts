@@ -11,6 +11,7 @@ import { IConfigService } from './config/config.service.interface';
 import { AuthMiddleware } from './common/auth.middleware';
 import { CategoriesController } from './categories/categories.controller';
 import { BookController } from './book/book.controller';
+import { CommentController } from './comment/comment.controller';
 
 @injectable()
 export class App {
@@ -25,6 +26,7 @@ export class App {
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.CategoriesController) private categoriesController: CategoriesController,
 		@inject(TYPES.BookController) private bookController: BookController,
+		@inject(TYPES.CommentController) private commentController: CommentController,
 	) {
 		this.app = express();
 		this.port = +this.configService.get('PORT') || 8002;
@@ -43,6 +45,7 @@ export class App {
 		this.app.use('/auth', this.usersController.getRouter());
 		this.app.use(Paths.Categories, this.categoriesController.getRouter());
 		this.app.use(Paths.Books, this.bookController.getRouter());
+		this.app.use(Paths.Comments, this.commentController.getRouter());
 	}
 
 	useExceptionFilters(): void {

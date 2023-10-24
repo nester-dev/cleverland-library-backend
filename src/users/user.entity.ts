@@ -4,6 +4,7 @@ import { IUserModel } from '../models/user.model.interface';
 export class User {
 	private password: string;
 	constructor(
+		private readonly id: string,
 		private readonly username: string,
 		private readonly email: string,
 		private readonly blocked: boolean,

@@ -1,4 +1,4 @@
-import { IMiddleware } from './middleware.interface';
+import { IMiddleware } from './types/middleware.interface';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 

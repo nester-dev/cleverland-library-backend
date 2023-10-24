@@ -1,11 +1,11 @@
-import { IBooksController } from './book.controller.interface';
+import { IBooksController } from './types/book.controller.interface';
 import { NextFunction, Request, Response } from 'express';
 import { BaseController } from '../common/base.controller';
 import { inject, injectable } from 'inversify';
 import { AuthGuard } from '../common/auth.guard';
 import { BookCreateDto } from './dto/book-create.dto';
 import { TYPES } from '../types';
-import { IBookService } from './book.service.interface';
+import { IBookService } from './types/book.service.interface';
 import { HttpError } from '../errors/http-error.class';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { AddImagesDto } from './dto/add-images.dto';
