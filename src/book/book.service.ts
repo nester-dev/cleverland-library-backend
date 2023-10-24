@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { IBookModel } from '../models/book.model.interface';
+import { IBookModel } from '../models/types/book.model.interface';
 import { TYPES } from '../types';
 import { Book } from './book.entity';
 import { IBookRepository } from './types/book.repository.interface';

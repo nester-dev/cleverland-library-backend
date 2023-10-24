@@ -1,10 +1,10 @@
 import { IBookRepository } from './types/book.repository.interface';
-import { IBookModel, IImage } from '../models/book.model.interface';
+import { IBookModel, IImage } from '../models/types/book.model.interface';
 import BookModel from '../models/Book.model';
 import { Book } from './book.entity';
 import { injectable } from 'inversify';
 import CategoriesModel from '../models/Categories.model';
-import { ICommentModel } from '../models/comment.model.interface';
+import { ICommentModel } from '../models/types/comment.model.interface';
 
 @injectable()
 export class BookRepository implements IBookRepository {

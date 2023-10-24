@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Schema } from 'mongoose';
-import { ICommentModel } from './comment.model.interface';
+import { ICommentModel } from './types/comment.model.interface';
 
 const CommentSchema: Schema<ICommentModel> = new mongoose.Schema(
 	{

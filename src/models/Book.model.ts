@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Schema } from 'mongoose';
-import { IBookModel } from './book.model.interface';
+import { IBookModel } from './types/book.model.interface';
 
 const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 	id: { type: String, required: [true, 'Id is required'] },
@@ -32,6 +32,15 @@ const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 			},
 		},
 	],
+
+	booking: {
+		id: { type: String, required: [true, 'BookingId is required'] },
+		order: Boolean,
+		dateOrder: { type: Date, required: [true, 'Date is required'] },
+		customerId: { type: String, required: [true, 'CustomerId is required'] },
+		customerFirstName: { type: String, required: [true, 'customerFirstName is required'] },
+		customerLastName: { type: String, required: [true, 'customerLastName is required'] },
+	},
 });
 
 export default mongoose.model<IBookModel>('Book', BookSchema);

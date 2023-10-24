@@ -2,8 +2,8 @@ import { IUserRepository } from './types/user.repository.interface';
 import { User } from './user.entity';
 import { injectable } from 'inversify';
 import UserModel from '../models/User.model';
-import { IUserModel } from '../models/user.model.interface';
-import { ICommentModel } from '../models/comment.model.interface';
+import { IUserModel } from '../models/types/user.model.interface';
+import { ICommentModel } from '../models/types/comment.model.interface';
 
 @injectable()
 export class UserRepository implements IUserRepository {

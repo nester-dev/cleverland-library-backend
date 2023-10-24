@@ -1,4 +1,4 @@
-import { IImage } from '../models/book.model.interface';
+import { IImage } from '../models/types/book.model.interface';
 
 export class Book {
 	constructor(

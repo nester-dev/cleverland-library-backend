@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Schema } from 'mongoose';
-import { ICategoriesModel } from './categories.model.interface';
+import { ICategoriesModel } from './types/categories.model.interface';
 
 const CategoriesSchema: Schema<ICategoriesModel> = new mongoose.Schema({
 	name: {

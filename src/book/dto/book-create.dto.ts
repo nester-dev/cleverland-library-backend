@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { IImage } from '../../models/book.model.interface';
+import { IImage } from '../../models/types/book.model.interface';
 
 export class BookCreateDto {
 	@IsString({ message: 'Title should be a string' })

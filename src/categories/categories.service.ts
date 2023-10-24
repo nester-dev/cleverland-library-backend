@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { ICategoriesRepository } from './categories.repository.interface';
 import { CategoriesCreateDto } from './dto/categories-create.dto';
-import { ICategoriesModel } from '../models/categories.model.interface';
+import { ICategoriesModel } from '../models/types/categories.model.interface';
 
 @injectable()
 export class CategoriesService implements ICategoriesService {

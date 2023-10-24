@@ -1,6 +1,6 @@
-import { IBookModel, IImage } from '../../models/book.model.interface';
+import { IBookModel, IImage } from '../../models/types/book.model.interface';
 import { Book } from '../book.entity';
-import { ICommentModel } from '../../models/comment.model.interface';
+import { ICommentModel } from '../../models/types/comment.model.interface';
 
 export interface IBookRepository {
 	getBooks(): Promise<IBookModel[] | null>;

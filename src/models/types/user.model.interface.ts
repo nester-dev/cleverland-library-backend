@@ -16,4 +16,5 @@ export interface IUserModel {
 		text: string;
 		bookId: string;
 	}[];
+	booking: { id: string; order: boolean; dateOrder: Date } | null;
 }

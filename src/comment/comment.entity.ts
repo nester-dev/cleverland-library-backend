@@ -1,4 +1,4 @@
-import { IUserModel } from '../models/user.model.interface';
+import { IUserModel } from '../models/types/user.model.interface';
 
 export interface ICommentUserInfo {
 	commentUserId: string | null;

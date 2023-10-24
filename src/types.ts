@@ -20,6 +20,9 @@ export const TYPES = {
 	CommentController: Symbol.for('CommentController'),
 	CommentRepository: Symbol.for('CommentRepository'),
 	CommentService: Symbol.for('CommentService'),
+	BookingController: Symbol.for('BookingController'),
+	BookingRepository: Symbol.for('BookingRepository'),
+	BookingService: Symbol.for('BookingService'),
 };
 
 export interface IBootstrapReturn {
@@ -34,4 +37,5 @@ export enum Paths {
 	Categories = '/api/categories',
 	Books = '/api/books',
 	Comments = '/api/comments',
+	Bookings = '/api/bookings',
 }

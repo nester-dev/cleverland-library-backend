@@ -12,6 +12,7 @@ import { AuthMiddleware } from './common/auth.middleware';
 import { CategoriesController } from './categories/categories.controller';
 import { BookController } from './book/book.controller';
 import { CommentController } from './comment/comment.controller';
+import { BookingController } from './booking/booking.controller';
 
 @injectable()
 export class App {
@@ -27,6 +28,7 @@ export class App {
 		@inject(TYPES.CategoriesController) private categoriesController: CategoriesController,
 		@inject(TYPES.BookController) private bookController: BookController,
 		@inject(TYPES.CommentController) private commentController: CommentController,
+		@inject(TYPES.BookingController) private bookingController: BookingController,
 	) {
 		this.app = express();
 		this.port = +this.configService.get('PORT') || 8002;
@@ -46,6 +48,7 @@ export class App {
 		this.app.use(Paths.Categories, this.categoriesController.getRouter());
 		this.app.use(Paths.Books, this.bookController.getRouter());
 		this.app.use(Paths.Comments, this.commentController.getRouter());
+		this.app.use(Paths.Bookings, this.bookingController.getRouter());
 	}
 
 	useExceptionFilters(): void {

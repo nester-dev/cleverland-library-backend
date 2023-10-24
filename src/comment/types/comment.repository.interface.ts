@@ -1,4 +1,4 @@
-import { ICommentModel } from '../../models/comment.model.interface';
+import { ICommentModel } from '../../models/types/comment.model.interface';
 import { Comment } from '../comment.entity';
 
 export interface ICommentRepository {

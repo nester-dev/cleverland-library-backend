@@ -1,5 +1,5 @@
 import { compare, hash } from 'bcryptjs';
-import { IUserModel } from '../models/user.model.interface';
+import { IUserModel } from '../models/types/user.model.interface';
 
 export class User {
 	private password: string;

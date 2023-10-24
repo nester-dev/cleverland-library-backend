@@ -1,6 +1,6 @@
 import { User } from '../user.entity';
-import { IUserModel } from '../../models/user.model.interface';
-import { ICommentModel } from '../../models/comment.model.interface';
+import { IUserModel } from '../../models/types/user.model.interface';
+import { ICommentModel } from '../../models/types/comment.model.interface';
 
 export interface IUserRepository {
 	createUser(user: User): Promise<IUserModel | null>;

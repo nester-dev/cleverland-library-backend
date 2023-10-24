@@ -1,5 +1,5 @@
 import { BookCreateDto } from '../dto/book-create.dto';
-import { IBookModel } from '../../models/book.model.interface';
+import { IBookModel } from '../../models/types/book.model.interface';
 import { Book } from '../book.entity';
 
 export interface IBookService {

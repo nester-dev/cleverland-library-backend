@@ -33,6 +33,12 @@ import { ICommentRepository } from './comment/types/comment.repository.interface
 import { CommentRepository } from './comment/comment.repository';
 import { ICommentService } from './comment/types/comment.service.interface';
 import { CommentService } from './comment/comment.service';
+import { IBookingController } from './booking/types/booking.controller.interface';
+import { BookingController } from './booking/booking.controller';
+import { IBookingRepository } from './booking/types/booking.repository.interface';
+import { BookingRepository } from './booking/booking.repository';
+import { IBookingService } from './booking/types/booking.service.interface';
+import { BookingService } from './booking/booking.service';
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope();
@@ -56,5 +62,8 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ICommentController>(TYPES.CommentController).to(CommentController).inSingletonScope();
 	bind<ICommentRepository>(TYPES.CommentRepository).to(CommentRepository).inSingletonScope();
 	bind<ICommentService>(TYPES.CommentService).to(CommentService).inSingletonScope();
+	bind<IBookingController>(TYPES.BookingController).to(BookingController).inSingletonScope();
+	bind<IBookingRepository>(TYPES.BookingRepository).to(BookingRepository).inSingletonScope();
+	bind<IBookingService>(TYPES.BookingService).to(BookingService).inSingletonScope();
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });

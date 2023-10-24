@@ -22,4 +22,12 @@ export interface IBookModel extends Document {
 	categories: string[];
 	images: IImage[];
 	comments: ICommentModel[];
+	booking: {
+		id: string;
+		order: boolean;
+		dateOrder: Date;
+		customerId: string;
+		customerFirstName: string;
+		customerLastName: string;
+	};
 }

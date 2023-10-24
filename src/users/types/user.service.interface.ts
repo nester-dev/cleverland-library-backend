@@ -1,6 +1,6 @@
 import { UserRegisterDto } from '../dto/user-register.dto';
 import { UserLoginDto } from '../dto/user-login.dto';
-import { IUserModel } from '../../models/user.model.interface';
+import { IUserModel } from '../../models/types/user.model.interface';
 import { User } from '../user.entity';
 
 export interface IUserService {

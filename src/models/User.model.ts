@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import { Schema } from 'mongoose';
-import { IUserModel } from './user.model.interface';
+import { IUserModel } from './types/user.model.interface';
+import { BookingSchema } from './Booking.model';
 
 const emailRegexpPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -58,12 +59,17 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema(
 
 		comments: [
 			{
-				id: { type: String, required: [true, 'Id is required'] },
+				id: { type: String },
 				rating: Number,
-				text: { type: String, required: [true, 'Text is required'] },
-				bookId: { type: String, required: [true, 'BookId is required'] },
+				text: { type: String },
+				bookId: { type: String },
 			},
 		],
+
+		booking: {
+			type: BookingSchema,
+			required: false,
+		},
 	},
 	{ timestamps: true },
 );

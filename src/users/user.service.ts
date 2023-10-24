@@ -6,7 +6,7 @@ import { TYPES } from '../types';
 import { IConfigService } from '../config/config.service.interface';
 import { IUserRepository } from './types/user.repository.interface';
 import { UserLoginDto } from './dto/user-login.dto';
-import { IUserModel } from '../models/user.model.interface';
+import { IUserModel } from '../models/types/user.model.interface';
 import { v4 as uuid } from 'uuid';
 
 @injectable()

@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { ICommentRepository } from './types/comment.repository.interface';
-import { ICommentModel } from '../models/comment.model.interface';
+import { ICommentModel } from '../models/types/comment.model.interface';
 import { Comment } from './comment.entity';
 import CommentModel from '../models/Comment.model';
 import { TYPES } from '../types';
