@@ -1,7 +1,7 @@
-import { ICategoriesService } from './categories.service.interface';
+import { ICategoriesService } from './types/categories.service.interface';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
-import { ICategoriesRepository } from './categories.repository.interface';
+import { ICategoriesRepository } from './types/categories.repository.interface';
 import { CategoriesCreateDto } from './dto/categories-create.dto';
 import { ICategoriesModel } from '../models/types/categories.model.interface';
 

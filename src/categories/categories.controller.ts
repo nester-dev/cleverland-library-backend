@@ -2,9 +2,9 @@ import { BaseController } from '../common/base.controller';
 import { TYPES } from '../types';
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
-import { ICategoriesController } from './categories.controller.interface';
+import { ICategoriesController } from './types/categories.controller.interface';
 import { AuthGuard } from '../common/auth.guard';
-import { ICategoriesService } from './categories.service.interface';
+import { ICategoriesService } from './types/categories.service.interface';
 import { CategoriesCreateDto } from './dto/categories-create.dto';
 import { HttpError } from '../errors/http-error.class';
 import { ValidateMiddleware } from '../common/validate.middleware';
@@ -37,7 +37,7 @@ export class CategoriesController extends BaseController implements ICategoriesC
 			return next(new HttpError(404, 'Categories not found'));
 		}
 
-		res.status(200).send({ categories });
+		res.status(200).send(categories);
 	}
 
 	async createCategory(

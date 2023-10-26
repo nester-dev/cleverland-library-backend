@@ -1,4 +1,4 @@
-import { ICategoriesRepository } from './categories.repository.interface';
+import { ICategoriesRepository } from './types/categories.repository.interface';
 import CategoriesModel from '../models/Categories.model';
 import { ICategoriesModel } from '../models/types/categories.model.interface';
 import { injectable } from 'inversify';
