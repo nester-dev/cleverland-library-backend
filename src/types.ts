@@ -32,6 +32,7 @@ export interface IBootstrapReturn {
 }
 
 export enum Paths {
+	Auth = '/auth',
 	Login = '/login',
 	Register = '/register',
 	GetMe = '/me',

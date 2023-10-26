@@ -44,7 +44,7 @@ export class App {
 	}
 
 	useRoutes(): void {
-		this.app.use('/auth', this.usersController.getRouter());
+		this.app.use(Paths.Auth, this.usersController.getRouter());
 		this.app.use(Paths.Categories, this.categoriesController.getRouter());
 		this.app.use(Paths.Books, this.bookController.getRouter());
 		this.app.use(Paths.Comments, this.commentController.getRouter());
