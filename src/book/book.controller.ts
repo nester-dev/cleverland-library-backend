@@ -62,7 +62,7 @@ export class BookController extends BaseController implements IBooksController {
 		if (!result) {
 			return next(new HttpError(422, 'Cannot get books'));
 		}
-		res.status(200).send({ result });
+		res.status(200).send(result);
 	}
 	async getBookById(req: Request, res: Response, next: NextFunction): Promise<void> {
 		const id = req.params.id;

@@ -79,7 +79,7 @@ let BookController = class BookController extends base_controller_1.BaseControll
             if (!result) {
                 return next(new http_error_class_1.HttpError(422, 'Cannot get books'));
             }
-            res.status(200).send({ result });
+            res.status(200).send(result);
         });
     }
     getBookById(req, res, next) {
