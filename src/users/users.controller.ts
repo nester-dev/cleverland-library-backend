@@ -72,7 +72,7 @@ export class UsersController extends BaseController implements IUsersController 
 			return next(new HttpError(422, 'User already exists'));
 		}
 
-		res.status(201).send({ user: result });
+		res.status(201).send(result);
 	}
 
 	async getMe(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -86,7 +86,7 @@ export class UsersController extends BaseController implements IUsersController 
 			return next(new HttpError(404, 'User not found'));
 		}
 
-		res.status(200).send({ user });
+		res.status(200).send(user);
 	}
 
 	private signJWT(userId: string, secret: string): Promise<string> {
