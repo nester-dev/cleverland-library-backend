@@ -88,14 +88,13 @@ export class BookController extends BaseController implements IBooksController {
 		res.status(201).send({ message: 'book created', book: result });
 	}
 
-	addImagesToBook(req: Request, res: Response, next: NextFunction): void {
+	async addImagesToBook(req: Request, res: Response, next: NextFunction): Promise<void> {
 		const images = req?.files;
-		const result = this.bookService.addImagesToBook(req.body.id, images);
-
-		if (!result) {
-			return next(new HttpError(422, 'Cannot add images to book'));
+		try {
+			await this.bookService.addImagesToBook(req.body.id, images);
+			res.status(201).send({ message: 'images added' });
+		} catch (error) {
+			return next(error);
 		}
-
-		res.status(201).send({ message: 'images added' });
 	}
 }

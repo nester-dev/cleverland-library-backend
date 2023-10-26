@@ -6,10 +6,14 @@ import { IBookRepository } from './types/book.repository.interface';
 import { IBookService } from './types/book.service.interface';
 import { BookCreateDto } from './dto/book-create.dto';
 import { v4 as uuid } from 'uuid';
+import { IStorageService } from '../storage/types/storage.service.interface';
 
 @injectable()
 export class BookService implements IBookService {
-	constructor(@inject(TYPES.BookRepository) private bookRepository: IBookRepository) {}
+	constructor(
+		@inject(TYPES.BookRepository) private bookRepository: IBookRepository,
+		@inject(TYPES.StorageService) private storageService: IStorageService,
+	) {}
 	async getBooks(): Promise<Book[] | null> {
 		const books = await this.bookRepository.getBooks();
 
@@ -73,20 +77,12 @@ export class BookService implements IBookService {
 		id: string,
 		images: Express.Multer.File[] | { [p: string]: Express.Multer.File[] } | undefined,
 	): Promise<IBookModel | null> {
-		let imgArray: Express.Multer.File[] = [];
+		const result = await this.storageService.uploadImagesToStorage(images);
 
-		if (Array.isArray(images)) {
-			imgArray = images;
-		} else if (typeof images === 'object') {
-			Object.values(images).forEach((value) => {
-				imgArray = imgArray.concat(value);
-			});
+		if (!result) {
+			return null;
 		}
 
-		const imagesToSave = imgArray.map((image) => {
-			return { url: image.path };
-		});
-
-		return await this.bookRepository.addImagesToBook(id, imagesToSave);
+		return await this.bookRepository.addImagesToBook(id, result);
 	}
 }

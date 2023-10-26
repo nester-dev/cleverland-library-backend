@@ -23,6 +23,7 @@ export const TYPES = {
 	BookingController: Symbol.for('BookingController'),
 	BookingRepository: Symbol.for('BookingRepository'),
 	BookingService: Symbol.for('BookingService'),
+	StorageService: Symbol.for('StorageService'),
 };
 
 export interface IBootstrapReturn {

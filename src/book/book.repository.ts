@@ -49,8 +49,8 @@ export class BookRepository implements IBookRepository {
 	}
 
 	addImagesToBook(id: string, newImages: IImage[]): Promise<IBookModel | null> {
-		return BookModel.findByIdAndUpdate(
-			id,
+		return BookModel.findOneAndUpdate(
+			{ id },
 			{ $push: { images: { $each: newImages } } },
 			{ new: true },
 		);

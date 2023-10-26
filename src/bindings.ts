@@ -39,6 +39,8 @@ import { IBookingRepository } from './booking/types/booking.repository.interface
 import { BookingRepository } from './booking/booking.repository';
 import { IBookingService } from './booking/types/booking.service.interface';
 import { BookingService } from './booking/booking.service';
+import { IStorageService } from './storage/types/storage.service.interface';
+import { CloudinaryStorageService } from './storage/cloudinary-storage.service';
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope();
@@ -65,5 +67,6 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IBookingController>(TYPES.BookingController).to(BookingController).inSingletonScope();
 	bind<IBookingRepository>(TYPES.BookingRepository).to(BookingRepository).inSingletonScope();
 	bind<IBookingService>(TYPES.BookingService).to(BookingService).inSingletonScope();
+	bind<IStorageService>(TYPES.StorageService).to(CloudinaryStorageService).inSingletonScope();
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });

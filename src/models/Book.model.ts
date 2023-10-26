@@ -17,7 +17,7 @@ const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 	producer: { type: String, required: [true, 'Producer is required'] },
 	authors: { type: [String], required: [true, 'Authors is required'] },
 	categories: [String],
-	images: [{ url: String }],
+	images: [{ id: String, url: String }],
 	comments: [
 		{
 			id: { type: String, required: [true, 'Id is required'] },

@@ -2,6 +2,7 @@ import { ICommentModel } from './comment.model.interface';
 import { Document } from 'mongoose';
 
 export interface IImage {
+	id: string;
 	url: string;
 }
 
