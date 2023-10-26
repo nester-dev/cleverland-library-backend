@@ -27,8 +27,9 @@ const types_1 = require("../types");
 const book_entity_1 = require("./book.entity");
 const uuid_1 = require("uuid");
 let BookService = class BookService {
-    constructor(bookRepository) {
+    constructor(bookRepository, storageService) {
         this.bookRepository = bookRepository;
+        this.storageService = storageService;
     }
     getBooks() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -59,19 +60,11 @@ let BookService = class BookService {
     }
     addImagesToBook(id, images) {
         return __awaiter(this, void 0, void 0, function* () {
-            let imgArray = [];
-            if (Array.isArray(images)) {
-                imgArray = images;
+            const result = yield this.storageService.uploadImagesToStorage(images);
+            if (!result) {
+                return null;
             }
-            else if (typeof images === 'object') {
-                Object.values(images).forEach((value) => {
-                    imgArray = imgArray.concat(value);
-                });
-            }
-            const imagesToSave = imgArray.map((image) => {
-                return { url: image.path };
-            });
-            return yield this.bookRepository.addImagesToBook(id, imagesToSave);
+            return yield this.bookRepository.addImagesToBook(id, result);
         });
     }
 };
@@ -79,5 +72,6 @@ exports.BookService = BookService;
 exports.BookService = BookService = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(types_1.TYPES.BookRepository)),
-    __metadata("design:paramtypes", [Object])
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.StorageService)),
+    __metadata("design:paramtypes", [Object, Object])
 ], BookService);

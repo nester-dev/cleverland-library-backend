@@ -102,12 +102,16 @@ let BookController = class BookController extends base_controller_1.BaseControll
         });
     }
     addImagesToBook(req, res, next) {
-        const images = req === null || req === void 0 ? void 0 : req.files;
-        const result = this.bookService.addImagesToBook(req.body.id, images);
-        if (!result) {
-            return next(new http_error_class_1.HttpError(422, 'Cannot add images to book'));
-        }
-        res.status(201).send({ message: 'images added' });
+        return __awaiter(this, void 0, void 0, function* () {
+            const images = req === null || req === void 0 ? void 0 : req.files;
+            try {
+                yield this.bookService.addImagesToBook(req.body.id, images);
+                res.status(201).send({ message: 'images added' });
+            }
+            catch (error) {
+                return next(error);
+            }
+        });
     }
 };
 exports.BookController = BookController;

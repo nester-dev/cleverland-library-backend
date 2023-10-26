@@ -15,19 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MulterService = void 0;
 const multer_1 = __importDefault(require("multer"));
 const inversify_1 = require("inversify");
-const uuid_1 = require("uuid");
 let MulterService = class MulterService {
     constructor() {
-        const storage = multer_1.default.diskStorage({
-            destination: (req, file, cb) => {
-                cb(null, 'uploads/');
-            },
-            filename(req, file, callback) {
-                const { originalname } = file;
-                const format = originalname.substring(originalname.lastIndexOf('.') + 1);
-                callback(null, `${(0, uuid_1.v4)()}.${format}`);
-            },
-        });
+        const storage = multer_1.default.memoryStorage();
         this.upload = (0, multer_1.default)({ storage });
     }
     array(fieldName) {

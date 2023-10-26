@@ -23,9 +23,11 @@ exports.TYPES = {
     BookingController: Symbol.for('BookingController'),
     BookingRepository: Symbol.for('BookingRepository'),
     BookingService: Symbol.for('BookingService'),
+    StorageService: Symbol.for('StorageService'),
 };
 var Paths;
 (function (Paths) {
+    Paths["Auth"] = "/api/auth";
     Paths["Login"] = "/login";
     Paths["Register"] = "/register";
     Paths["GetMe"] = "/me";

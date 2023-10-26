@@ -24,6 +24,7 @@ const comment_service_1 = require("./comment/comment.service");
 const booking_controller_1 = require("./booking/booking.controller");
 const booking_repository_1 = require("./booking/booking.repository");
 const booking_service_1 = require("./booking/booking.service");
+const cloudinary_storage_service_1 = require("./storage/cloudinary-storage.service");
 exports.appBindings = new inversify_1.ContainerModule((bind) => {
     bind(types_1.TYPES.ILogger).to(logger_service_1.LoggerService).inSingletonScope();
     bind(types_1.TYPES.UsersController).to(users_controller_1.UsersController);
@@ -49,5 +50,6 @@ exports.appBindings = new inversify_1.ContainerModule((bind) => {
     bind(types_1.TYPES.BookingController).to(booking_controller_1.BookingController).inSingletonScope();
     bind(types_1.TYPES.BookingRepository).to(booking_repository_1.BookingRepository).inSingletonScope();
     bind(types_1.TYPES.BookingService).to(booking_service_1.BookingService).inSingletonScope();
+    bind(types_1.TYPES.StorageService).to(cloudinary_storage_service_1.CloudinaryStorageService).inSingletonScope();
     bind(types_1.TYPES.Application).to(app_1.App).inSingletonScope();
 });

@@ -60,7 +60,7 @@ let App = class App {
         this.app.use(authMiddleware.execute.bind(authMiddleware));
     }
     useRoutes() {
-        this.app.use('/auth', this.usersController.getRouter());
+        this.app.use(types_1.Paths.Auth, this.usersController.getRouter());
         this.app.use(types_1.Paths.Categories, this.categoriesController.getRouter());
         this.app.use(types_1.Paths.Books, this.bookController.getRouter());
         this.app.use(types_1.Paths.Comments, this.commentController.getRouter());

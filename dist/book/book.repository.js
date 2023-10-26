@@ -52,7 +52,7 @@ let BookRepository = class BookRepository {
         });
     }
     addImagesToBook(id, newImages) {
-        return Book_model_1.default.findByIdAndUpdate(id, { $push: { images: { $each: newImages } } }, { new: true });
+        return Book_model_1.default.findOneAndUpdate({ id }, { $push: { images: { $each: newImages } } }, { new: true });
     }
 };
 exports.BookRepository = BookRepository;
