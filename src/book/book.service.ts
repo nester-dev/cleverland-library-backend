@@ -7,6 +7,7 @@ import { IBookService } from './types/book.service.interface';
 import { BookCreateDto } from './dto/book-create.dto';
 import { v4 as uuid } from 'uuid';
 import { IStorageService } from '../storage/types/storage.service.interface';
+import { getBookResponseFields } from '../utils/getBookResponseFields';
 
 @injectable()
 export class BookService implements IBookService {
@@ -14,41 +15,43 @@ export class BookService implements IBookService {
 		@inject(TYPES.BookRepository) private bookRepository: IBookRepository,
 		@inject(TYPES.StorageService) private storageService: IStorageService,
 	) {}
-	async getBooks(): Promise<Book[] | null> {
+	async getBooks(): Promise<Partial<IBookModel>[] | null> {
 		const books = await this.bookRepository.getBooks();
 
 		if (!books) {
 			return null;
 		}
 
-		return books?.map((book) => {
-			return new Book(book.id, book.title, book.rating, book.authors, book.categories, book.images);
-		});
+		return getBookResponseFields(books);
 	}
-	async getBookById(id: string): Promise<Book | null> {
+	async getBookById(id: string): Promise<Partial<IBookModel> | null> {
 		const book = await this.bookRepository.getBookById(id);
 
 		if (!book) {
 			return null;
 		}
 
-		return new Book(
-			book.id,
-			book.title,
-			book.rating,
-			book.authors,
-			book.categories,
-			book.images,
-			book.issueYear,
-			book.description,
-			book.publish,
-			book.pages,
-			book.cover,
-			book.weight,
-			book.format,
-			book.ISBN,
-			book.producer,
-		);
+		const transformedImages = book.images.map((image) => ({
+			url: image.url,
+		}));
+
+		return {
+			id: book.id,
+			title: book.title,
+			rating: book.rating,
+			authors: book.authors,
+			categories: book.categories,
+			images: transformedImages,
+			issueYear: book.issueYear,
+			description: book.description,
+			publish: book.publish,
+			pages: book.pages,
+			cover: book.cover,
+			weight: book.weight,
+			format: book.format,
+			ISBN: book.ISBN,
+			producer: book.producer,
+		};
 	}
 	async createBook(book: BookCreateDto): Promise<IBookModel | null> {
 		const id = uuid();

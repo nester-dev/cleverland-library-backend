@@ -22,6 +22,13 @@ export class CategoriesController extends BaseController implements ICategoriesC
 			},
 
 			{
+				path: '/:categoryId',
+				method: 'get',
+				func: this.getBooksByCategoryName,
+				middleware: [new AuthGuard()],
+			},
+
+			{
 				path: '/',
 				method: 'post',
 				func: this.createCategory,
@@ -38,6 +45,17 @@ export class CategoriesController extends BaseController implements ICategoriesC
 		}
 
 		res.status(200).send(categories);
+	}
+
+	async getBooksByCategoryName(req: Request, res: Response, next: NextFunction): Promise<void> {
+		try {
+			const categoryId = req.params.categoryId;
+			const books = await this.categoriesService.getBooksByCategory(categoryId);
+
+			res.status(200).send(books);
+		} catch (error) {
+			return next(error);
+		}
 	}
 
 	async createCategory(

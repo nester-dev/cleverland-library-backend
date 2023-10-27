@@ -10,18 +10,15 @@ import { HttpError } from '../errors/http-error.class';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { AddImagesDto } from './dto/add-images.dto';
 import { MulterService } from '../multer/multer.service';
-import multer from 'multer';
 import { UploadMiddleware } from '../common/upload.middleware';
 
 @injectable()
 export class BookController extends BaseController implements IBooksController {
-	upload: any;
 	constructor(
 		@inject(TYPES.BookService) private bookService: IBookService,
 		@inject(TYPES.MulterService) private multerService: MulterService,
 	) {
 		super();
-		this.upload = multer({ dest: 'uploads/' });
 		this.bindRoutes([
 			{
 				path: '/',
@@ -72,7 +69,7 @@ export class BookController extends BaseController implements IBooksController {
 			return next(new HttpError(422, 'Cannot get book by id'));
 		}
 
-		res.status(200).send({ result });
+		res.status(200).send(result);
 	}
 	async createBook(
 		{ body }: Request<{}, {}, BookCreateDto>,

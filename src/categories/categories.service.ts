@@ -4,6 +4,8 @@ import { TYPES } from '../types';
 import { ICategoriesRepository } from './types/categories.repository.interface';
 import { CategoriesCreateDto } from './dto/categories-create.dto';
 import { ICategoriesModel } from '../models/types/categories.model.interface';
+import { IBookModel } from '../models/types/book.model.interface';
+import { getBookResponseFields } from '../utils/getBookResponseFields';
 
 @injectable()
 export class CategoriesService implements ICategoriesService {
@@ -21,7 +23,26 @@ export class CategoriesService implements ICategoriesService {
 		return await this.categoriesRepository.createCategory(dto);
 	}
 
-	async getCategories(): Promise<ICategoriesModel[] | null> {
-		return this.categoriesRepository.getCategories();
+	async getCategories(): Promise<Partial<ICategoriesModel>[] | null | undefined> {
+		const result = await this.categoriesRepository.getCategories();
+
+		return result?.map((category) => {
+			return {
+				id: category._id,
+				name: category.name,
+				path: category.path,
+				booksCount: category.booksCount,
+			};
+		});
+	}
+
+	async getBooksByCategory(categoryName: string): Promise<Partial<IBookModel>[] | null> {
+		const books = await this.categoriesRepository.getBooksByCategoryId(categoryName);
+
+		if (!books) {
+			return null;
+		}
+
+		return getBookResponseFields(books);
 	}
 }

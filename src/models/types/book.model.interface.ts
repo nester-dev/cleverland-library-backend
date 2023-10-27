@@ -1,12 +1,11 @@
 import { ICommentModel } from './comment.model.interface';
-import { Document } from 'mongoose';
 
 export interface IImage {
-	id: string;
+	id?: string;
 	url: string;
 }
 
-export interface IBookModel extends Document {
+export interface IBookModel {
 	id: string;
 	title: string;
 	rating: number;

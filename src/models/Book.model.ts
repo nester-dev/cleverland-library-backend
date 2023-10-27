@@ -17,7 +17,7 @@ const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 	producer: { type: String, required: [true, 'Producer is required'] },
 	authors: { type: [String], required: [true, 'Authors is required'] },
 	categories: [String],
-	images: [{ id: String, url: String }],
+	images: [{ id: String, url: String, default: [] }],
 	comments: [
 		{
 			id: { type: String, required: [true, 'Id is required'] },
@@ -34,12 +34,12 @@ const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 	],
 
 	booking: {
-		id: { type: String, required: [true, 'BookingId is required'] },
+		id: String,
 		order: Boolean,
-		dateOrder: { type: Date, required: [true, 'Date is required'] },
-		customerId: { type: String, required: [true, 'CustomerId is required'] },
-		customerFirstName: { type: String, required: [true, 'customerFirstName is required'] },
-		customerLastName: { type: String, required: [true, 'customerLastName is required'] },
+		dateOrder: Date,
+		customerId: String,
+		customerFirstName: String,
+		customerLastName: String,
 	},
 });
 
