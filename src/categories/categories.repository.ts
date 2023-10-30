@@ -17,7 +17,7 @@ export class CategoriesRepository implements ICategoriesRepository {
 	}
 
 	getBooksByCategoryId(id: string): Promise<IBookModel[] | null> {
-		return BookModel.find({ categories: { $in: [id] } });
+		return BookModel.find({ categories: { $in: [id] } }).collation({ locale: 'ru', strength: 2 });
 	}
 
 	async createCategory({ name, path }: CategoriesCreateDto): Promise<ICategoriesModel> {

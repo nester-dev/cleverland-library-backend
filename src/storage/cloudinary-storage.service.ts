@@ -59,7 +59,7 @@ export class CloudinaryStorageService implements IStorageService {
 		) as Promise<UploadedImage[]>;
 	}
 
-	async deleteFileLocation(fileName?: string): Promise<void> {
-		console.log(fileName);
+	async deleteFileLocation(id: string): Promise<void> {
+		return await cloudinary.v2.uploader.destroy(id);
 	}
 }

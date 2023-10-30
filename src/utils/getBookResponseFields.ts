@@ -8,7 +8,8 @@ export const getBookResponseFields = (books: IBookModel[]) => {
 			categories: book.categories,
 			rating: book.rating,
 			title: book.title,
-			image: { url: book.images[0].url },
+			image: { url: book.images[0]?.url },
+			booking: book.booking,
 		};
 	});
 };

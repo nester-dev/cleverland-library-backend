@@ -53,8 +53,8 @@ const UserSchema: Schema<IUserModel> = new mongoose.Schema(
 		},
 
 		avatar: {
-			type: String,
-			default: null,
+			id: String,
+			avatarUrl: String,
 		},
 
 		comments: [

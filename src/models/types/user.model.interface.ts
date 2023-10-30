@@ -9,7 +9,10 @@ export interface IUserModel {
 	password: string;
 	createdAt?: Date;
 	updatedAt?: Date;
-	avatar?: string | null;
+	avatar?: {
+		id: string;
+		avatarUrl: string;
+	};
 	comments?: {
 		id: string;
 		rating: number;

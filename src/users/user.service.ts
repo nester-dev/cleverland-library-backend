@@ -8,12 +8,17 @@ import { IUserRepository } from './types/user.repository.interface';
 import { UserLoginDto } from './dto/user-login.dto';
 import { IUserModel } from '../models/types/user.model.interface';
 import { v4 as uuid } from 'uuid';
+import { HttpError } from '../errors/http-error.class';
+import { UserUpdateDto } from './dto/user-update.dto';
+import { IStorageService } from '../storage/types/storage.service.interface';
+import { getUserResponseFields, IUserResponse } from '../utils/getUserResponseFields';
 
 @injectable()
 export class UserService implements IUserService {
 	constructor(
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.UserRepository) private userRepository: IUserRepository,
+		@inject(TYPES.StorageService) private storageService: IStorageService,
 	) {}
 
 	async createUser({
@@ -37,6 +42,35 @@ export class UserService implements IUserService {
 		await newUser.setPassword(password, Number(salt));
 
 		return await this.userRepository.createUser(newUser);
+	}
+
+	async updateUser(userId: string, dto: UserUpdateDto): Promise<IUserModel | null> {
+		const existedUser = await this.userRepository.findUserById(userId);
+
+		if (!existedUser) {
+			throw new HttpError(404, 'User not found');
+		}
+
+		return await this.userRepository.updateUserInfo(userId, dto);
+	}
+
+	async updateUserAvatar(
+		userId: string,
+		image?: Express.Multer.File[] | { [p: string]: Express.Multer.File[] } | undefined,
+	): Promise<IUserModel | null> {
+		const existedUser = await this.userRepository.findUserById(userId);
+
+		if (existedUser?.avatar?.id) {
+			await this.storageService.deleteFileLocation(existedUser.avatar.id);
+		}
+
+		const result = await this.storageService.uploadImagesToStorage(image);
+
+		if (!result.length) {
+			throw new HttpError(404, 'Cannot upload image');
+		}
+
+		return await this.userRepository.updateUserAvatar(userId, result?.at(0));
 	}
 
 	async validateUser({ identifier, password }: UserLoginDto): Promise<Partial<IUserModel> | null> {
@@ -68,23 +102,13 @@ export class UserService implements IUserService {
 		return user.mapUserFields(existedUser);
 	}
 
-	async getUserInfo(userId: string): Promise<User | null> {
+	async getUserInfo(userId: string): Promise<IUserResponse | null> {
 		const existedUser = await this.userRepository.findUserById(userId);
 
 		if (!existedUser) {
 			return null;
 		}
 
-		return new User(
-			existedUser.id,
-			existedUser.username,
-			existedUser.email,
-			existedUser.blocked,
-			existedUser.firstName,
-			existedUser.lastName,
-			existedUser.phone,
-			existedUser.createdAt,
-			existedUser.updatedAt,
-		);
+		return getUserResponseFields(existedUser);
 	}
 }

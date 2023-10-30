@@ -29,6 +29,6 @@ export class Comment {
 		this.user.commentUserId = userModel.id;
 		this.user.firstName = userModel.firstName;
 		this.user.lastName = userModel.lastName;
-		this.user.avatarUrl = userModel.avatar;
+		this.user.avatarUrl = userModel.avatar?.avatarUrl;
 	}
 }

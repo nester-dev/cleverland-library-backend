@@ -11,12 +11,16 @@ import { HttpError } from '../errors/http-error.class';
 import { sign } from 'jsonwebtoken';
 import { IConfigService } from '../config/config.service.interface';
 import { AuthGuard } from '../common/auth.guard';
+import { UserUpdateDto } from './dto/user-update.dto';
+import { UploadMiddleware } from '../common/upload.middleware';
+import { MulterService } from '../multer/multer.service';
 
 @injectable()
 export class UsersController extends BaseController implements IUsersController {
 	constructor(
 		@inject(TYPES.UserService) private userService: IUserService,
 		@inject(TYPES.ConfigService) private configService: IConfigService,
+		@inject(TYPES.MulterService) private multerService: MulterService,
 	) {
 		super();
 		this.bindRoutes([
@@ -34,11 +38,20 @@ export class UsersController extends BaseController implements IUsersController 
 				middleware: [new ValidateMiddleware(UserRegisterDto)],
 			},
 
+			{ path: Paths.GetMe, method: 'get', func: this.getMe, middleware: [new AuthGuard()] },
+
 			{
-				path: Paths.GetMe,
-				method: 'get',
-				func: this.getMe,
-				middleware: [new AuthGuard()],
+				path: `${Paths.Users}/:userId`,
+				method: 'put',
+				func: this.updateUser,
+				middleware: [new AuthGuard(), new ValidateMiddleware(UserUpdateDto)],
+			},
+
+			{
+				path: `${Paths.Upload}/:userId`,
+				method: 'put',
+				func: this.updateUserAvatar,
+				middleware: [new AuthGuard(), new UploadMiddleware(this.multerService)],
 			},
 		]);
 	}
@@ -87,6 +100,26 @@ export class UsersController extends BaseController implements IUsersController 
 		}
 
 		res.status(200).send(user);
+	}
+
+	async updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+		try {
+			const result = await this.userService.updateUser(req.params.userId, req.body);
+
+			res.status(200).send(result);
+		} catch (error) {
+			return next(error);
+		}
+	}
+
+	async updateUserAvatar(req: Request, res: Response, next: NextFunction): Promise<void> {
+		try {
+			const result = await this.userService.updateUserAvatar(req.params.userId, req.files);
+
+			res.status(200).send(result);
+		} catch (error) {
+			return next(error);
+		}
 	}
 
 	private signJWT(userId: string, secret: string): Promise<string> {

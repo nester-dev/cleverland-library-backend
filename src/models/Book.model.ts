@@ -30,6 +30,7 @@ const BookSchema: Schema<IBookModel> = new mongoose.Schema({
 				lastName: { type: String, required: [true, 'lastName is required'] },
 				avatarUrl: { type: String, default: null },
 			},
+			default: [],
 		},
 	],
 

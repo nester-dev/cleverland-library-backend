@@ -51,6 +51,8 @@ export class BookService implements IBookService {
 			format: book.format,
 			ISBN: book.ISBN,
 			producer: book.producer,
+			comments: book.comments,
+			booking: book.booking,
 		};
 	}
 	async createBook(book: BookCreateDto): Promise<IBookModel | null> {
