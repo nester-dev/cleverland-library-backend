@@ -31,7 +31,7 @@ export class BookService implements IBookService {
 			return null;
 		}
 
-		const transformedImages = book.images.map((image) => ({
+		const transformedImages = book?.images?.map((image) => ({
 			url: image.url,
 		}));
 
